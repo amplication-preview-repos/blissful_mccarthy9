@@ -1,11 +1,11 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { ForecastLineListRelationFilter } from "../forecastLine/ForecastLineListRelationFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 export type UserWhereInput = {
   email?: StringNullableFilter;
   firstName?: StringNullableFilter;
-  forecastLines?: ForecastLineListRelationFilter;
+  forecastLines?: DateTimeFilter;
   id?: StringFilter;
   lastName?: StringNullableFilter;
   username?: StringFilter;

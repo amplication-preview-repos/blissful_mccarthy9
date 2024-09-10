@@ -11,13 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  IsOptional,
-  MaxLength,
-  ValidateNested,
-} from "class-validator";
-import { ForecastLineUpdateManyWithoutUsersInput } from "./ForecastLineUpdateManyWithoutUsersInput";
+import { IsString, IsOptional, MaxLength, IsDate } from "class-validator";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -50,15 +44,14 @@ class UserUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ForecastLineUpdateManyWithoutUsersInput,
   })
-  @ValidateNested()
-  @Type(() => ForecastLineUpdateManyWithoutUsersInput)
+  @IsDate()
+  @Type(() => Date)
   @IsOptional()
-  @Field(() => ForecastLineUpdateManyWithoutUsersInput, {
+  @Field(() => Date, {
     nullable: true,
   })
-  forecastLines?: ForecastLineUpdateManyWithoutUsersInput;
+  forecastLines?: Date;
 
   @ApiProperty({
     required: false,

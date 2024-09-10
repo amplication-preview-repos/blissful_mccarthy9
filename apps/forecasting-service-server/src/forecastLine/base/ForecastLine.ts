@@ -22,7 +22,6 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "../../product/base/Product";
-import { User } from "../../user/base/User";
 
 @ObjectType()
 class ForecastLine {
@@ -82,15 +81,6 @@ class ForecastLine {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  user?: User | null;
 }
 
 export { ForecastLine as ForecastLine };

@@ -13,8 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { ForecastLineListRelationFilter } from "../../forecastLine/base/ForecastLineListRelationFilter";
+import { IsOptional } from "class-validator";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
@@ -43,15 +43,14 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ForecastLineListRelationFilter,
+    type: DateTimeFilter,
   })
-  @ValidateNested()
-  @Type(() => ForecastLineListRelationFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => ForecastLineListRelationFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  forecastLines?: ForecastLineListRelationFilter;
+  forecastLines?: DateTimeFilter;
 
   @ApiProperty({
     required: false,

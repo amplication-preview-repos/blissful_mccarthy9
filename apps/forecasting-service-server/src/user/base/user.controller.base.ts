@@ -26,9 +26,6 @@ import { User } from "./User";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserUpdateInput } from "./UserUpdateInput";
-import { ForecastLineFindManyArgs } from "../../forecastLine/base/ForecastLineFindManyArgs";
-import { ForecastLine } from "../../forecastLine/base/ForecastLine";
-import { ForecastLineWhereUniqueInput } from "../../forecastLine/base/ForecastLineWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -55,6 +52,7 @@ export class UserControllerBase {
         createdAt: true,
         email: true,
         firstName: true,
+        forecastLines: true,
         id: true,
         lastName: true,
         roles: true,
@@ -84,6 +82,7 @@ export class UserControllerBase {
         createdAt: true,
         email: true,
         firstName: true,
+        forecastLines: true,
         id: true,
         lastName: true,
         roles: true,
@@ -114,6 +113,7 @@ export class UserControllerBase {
         createdAt: true,
         email: true,
         firstName: true,
+        forecastLines: true,
         id: true,
         lastName: true,
         roles: true,
@@ -153,6 +153,7 @@ export class UserControllerBase {
           createdAt: true,
           email: true,
           firstName: true,
+          forecastLines: true,
           id: true,
           lastName: true,
           roles: true,
@@ -191,6 +192,7 @@ export class UserControllerBase {
           createdAt: true,
           email: true,
           firstName: true,
+          forecastLines: true,
           id: true,
           lastName: true,
           roles: true,
@@ -206,115 +208,5 @@ export class UserControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @common.Get("/:id/forecastLines")
-  @ApiNestedQuery(ForecastLineFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "ForecastLine",
-    action: "read",
-    possession: "any",
-  })
-  async findForecastLines(
-    @common.Req() request: Request,
-    @common.Param() params: UserWhereUniqueInput
-  ): Promise<ForecastLine[]> {
-    const query = plainToClass(ForecastLineFindManyArgs, request.query);
-    const results = await this.service.findForecastLines(params.id, {
-      ...query,
-      select: {
-        createdAt: true,
-        forecastingTime: true,
-        id: true,
-
-        product: {
-          select: {
-            id: true,
-          },
-        },
-
-        quantity: true,
-        updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/forecastLines")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async connectForecastLines(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: ForecastLineWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      forecastLines: {
-        connect: body,
-      },
-    };
-    await this.service.updateUser({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/forecastLines")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async updateForecastLines(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: ForecastLineWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      forecastLines: {
-        set: body,
-      },
-    };
-    await this.service.updateUser({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/forecastLines")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async disconnectForecastLines(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: ForecastLineWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      forecastLines: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateUser({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

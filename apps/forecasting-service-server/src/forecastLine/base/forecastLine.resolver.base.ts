@@ -27,7 +27,6 @@ import { CreateForecastLineArgs } from "./CreateForecastLineArgs";
 import { UpdateForecastLineArgs } from "./UpdateForecastLineArgs";
 import { DeleteForecastLineArgs } from "./DeleteForecastLineArgs";
 import { Product } from "../../product/base/Product";
-import { User } from "../../user/base/User";
 import { ForecastLineService } from "../forecastLine.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ForecastLine)
@@ -102,12 +101,6 @@ export class ForecastLineResolverBase {
               connect: args.data.product,
             }
           : undefined,
-
-        user: args.data.user
-          ? {
-              connect: args.data.user,
-            }
-          : undefined,
       },
     });
   }
@@ -131,12 +124,6 @@ export class ForecastLineResolverBase {
           product: args.data.product
             ? {
                 connect: args.data.product,
-              }
-            : undefined,
-
-          user: args.data.user
-            ? {
-                connect: args.data.user,
               }
             : undefined,
         },
@@ -186,25 +173,6 @@ export class ForecastLineResolverBase {
     @graphql.Parent() parent: ForecastLine
   ): Promise<Product | null> {
     const result = await this.service.getProduct(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => User, {
-    nullable: true,
-    name: "user",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "read",
-    possession: "any",
-  })
-  async getUser(@graphql.Parent() parent: ForecastLine): Promise<User | null> {
-    const result = await this.service.getUser(parent.id);
 
     if (!result) {
       return null;

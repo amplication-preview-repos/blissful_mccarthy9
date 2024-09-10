@@ -10,12 +10,10 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
   ForecastLine as PrismaForecastLine,
   Product as PrismaProduct,
-  User as PrismaUser,
 } from "@prisma/client";
 
 export class ForecastLineServiceBase {
@@ -59,13 +57,5 @@ export class ForecastLineServiceBase {
         where: { id: parentId },
       })
       .product();
-  }
-
-  async getUser(parentId: string): Promise<PrismaUser | null> {
-    return this.prisma.forecastLine
-      .findUnique({
-        where: { id: parentId },
-      })
-      .user();
   }
 }

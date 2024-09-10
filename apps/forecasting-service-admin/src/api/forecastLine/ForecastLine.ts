@@ -1,5 +1,4 @@
 import { Product } from "../product/Product";
-import { User } from "../user/User";
 
 export type ForecastLine = {
   createdAt: Date;
@@ -8,5 +7,4 @@ export type ForecastLine = {
   product?: Product | null;
   quantity: number | null;
   updatedAt: Date;
-  user?: User | null;
 };

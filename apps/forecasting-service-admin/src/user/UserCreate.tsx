@@ -5,12 +5,11 @@ import {
   SimpleForm,
   CreateProps,
   TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
+  DateTimeInput,
   PasswordInput,
+  SelectArrayInput,
 } from "react-admin";
 
-import { ForecastLineTitle } from "../forecastLine/ForecastLineTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserCreate = (props: CreateProps): React.ReactElement => {
@@ -19,14 +18,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="Email" source="email" type="email" />
         <TextInput label="First Name" source="firstName" />
-        <ReferenceArrayInput
-          source="forecastLines"
-          reference="ForecastLine"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={ForecastLineTitle} />
-        </ReferenceArrayInput>
+        <DateTimeInput label="ForecastLines" source="forecastLines" />
         <TextInput label="Last Name" source="lastName" />
         <PasswordInput label="Password" source="password" />
         <SelectArrayInput

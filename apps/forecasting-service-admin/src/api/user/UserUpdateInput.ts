@@ -1,10 +1,9 @@
-import { ForecastLineUpdateManyWithoutUsersInput } from "./ForecastLineUpdateManyWithoutUsersInput";
 import { InputJsonValue } from "../../types";
 
 export type UserUpdateInput = {
   email?: string | null;
   firstName?: string | null;
-  forecastLines?: ForecastLineUpdateManyWithoutUsersInput;
+  forecastLines?: Date;
   lastName?: string | null;
   password?: string;
   roles?: InputJsonValue;

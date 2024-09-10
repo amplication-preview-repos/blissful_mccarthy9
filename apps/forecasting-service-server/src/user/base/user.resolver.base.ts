@@ -26,8 +26,6 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
-import { ForecastLineFindManyArgs } from "../../forecastLine/base/ForecastLineFindManyArgs";
-import { ForecastLine } from "../../forecastLine/base/ForecastLine";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -132,25 +130,5 @@ export class UserResolverBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [ForecastLine], { name: "forecastLines" })
-  @nestAccessControl.UseRoles({
-    resource: "ForecastLine",
-    action: "read",
-    possession: "any",
-  })
-  async findForecastLines(
-    @graphql.Parent() parent: User,
-    @graphql.Args() args: ForecastLineFindManyArgs
-  ): Promise<ForecastLine[]> {
-    const results = await this.service.findForecastLines(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
   }
 }

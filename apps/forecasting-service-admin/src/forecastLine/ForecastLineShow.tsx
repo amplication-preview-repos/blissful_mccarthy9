@@ -8,7 +8,6 @@ import {
   ReferenceField,
 } from "react-admin";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
-import { USER_TITLE_FIELD } from "../user/UserTitle";
 
 export const ForecastLineShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -22,9 +21,6 @@ export const ForecastLineShow = (props: ShowProps): React.ReactElement => {
         </ReferenceField>
         <TextField label="quantity" source="quantity" />
         <DateField source="updatedAt" label="Updated At" />
-        <ReferenceField label="User" source="user.id" reference="User">
-          <TextField source={USER_TITLE_FIELD} />
-        </ReferenceField>
       </SimpleShowLayout>
     </Show>
   );

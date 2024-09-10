@@ -223,12 +223,6 @@ export class ProductControllerBase {
 
         quantity: true,
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     if (results === null) {

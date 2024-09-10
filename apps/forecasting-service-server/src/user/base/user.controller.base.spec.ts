@@ -21,6 +21,7 @@ const CREATE_INPUT = {
   createdAt: new Date(),
   email: "exampleEmail",
   firstName: "exampleFirstName",
+  forecastLines: new Date(),
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
@@ -31,6 +32,7 @@ const CREATE_RESULT = {
   createdAt: new Date(),
   email: "exampleEmail",
   firstName: "exampleFirstName",
+  forecastLines: new Date(),
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
@@ -42,6 +44,7 @@ const FIND_MANY_RESULT = [
     createdAt: new Date(),
     email: "exampleEmail",
     firstName: "exampleFirstName",
+    forecastLines: new Date(),
     id: "exampleId",
     lastName: "exampleLastName",
     password: "examplePassword",
@@ -53,6 +56,7 @@ const FIND_ONE_RESULT = {
   createdAt: new Date(),
   email: "exampleEmail",
   firstName: "exampleFirstName",
+  forecastLines: new Date(),
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
@@ -143,6 +147,7 @@ describe("User", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        forecastLines: CREATE_RESULT.forecastLines.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -155,6 +160,7 @@ describe("User", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          forecastLines: FIND_MANY_RESULT[0].forecastLines.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -178,6 +184,7 @@ describe("User", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        forecastLines: FIND_ONE_RESULT.forecastLines.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -191,6 +198,7 @@ describe("User", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        forecastLines: CREATE_RESULT.forecastLines.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

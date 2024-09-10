@@ -7,5 +7,4 @@ export type ForecastLineOrderByInput = {
   productId?: SortOrder;
   quantity?: SortOrder;
   updatedAt?: SortOrder;
-  userId?: SortOrder;
 };
